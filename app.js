@@ -664,7 +664,10 @@ async function start() {
   S.me = pr.data;
   if (!S.me.approved) return viewPending();
   try { await loadAll(); } catch (e) { return fail(e, "불러오기"); }
-  if (!started) { subscribe(); started = true; }
+    if (!started) {
+    subscribe(); started = true;
+    if (!/^#\/p\/\d+/.test(location.hash) && location.hash !== "#/dash") { history.replaceState(null, "", "#/dash"); }
+  }
   route();
 }
 
